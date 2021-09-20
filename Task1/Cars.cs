@@ -1,20 +1,41 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace sharpstart
+namespace Task1
 {
     public class Cars
     {
         // свойства
         protected int id;
-        public static string Adress = "Moscow,Obraztsova street,9";
-        public string Tyres;
+        public static readonly string Adress = "Moscow,Obraztsova street,9";
         private string _model;
         private string _brand;
-        public bool Washed { get; set; }
+        private string _tires;
+
         public string Color { get; set; }
+        public bool Washed { get; set; }
+
+        private string[] colors =
+        {
+            "Black","White","Yellow","Blue","Green","Red"
+        };
         private bool Broken { get; set; }
-        
+
+        public string Tires
+        {
+            get
+            {
+                return _tires;
+            }
+            set
+            {
+                if (value == "summer" || value == "winter")
+                {
+                    _tires = value;
+                }
+            }
+        }
+
         public string Brand
        
         {
@@ -45,14 +66,14 @@ namespace sharpstart
         }
         
         // Конструкторы
-        public Cars(string brand, string model, string color, bool washed, bool broken,string tyres)
+        public Cars(string brand, string model, string color, bool washed, bool broken,string tires)
         {
             this.Brand = brand;
             this.Model = model;
             this.Washed = washed;
             this.Broken = broken;
             this.Color = color;
-            this.Tyres = tyres;
+            this.Tires = tires;
         }
             
         public Cars(string brand, string model,string color,bool washed)
@@ -62,7 +83,7 @@ namespace sharpstart
             this.Washed = washed;
             this.Broken = true;
             this.Color= color;
-            this.Tyres = "summer";
+            this.Tires = "summer";
         }
 
         public Cars(string brand, string model, string color)
@@ -72,45 +93,71 @@ namespace sharpstart
             this.Washed = true;
             this.Broken = false;
             this.Color = color;
-            this.Tyres = "summer";
+            this.Tires = "summer";
         }
-        public Cars(string brand, string model,string color, string tyres)
+        public Cars(string brand, string model,string color, string tires)
         {
             this.Brand = brand;
             this.Model = model;
             this.Washed = false;
             this.Broken = false;
             this.Color = color;
-            this.Tyres = tyres;
+            this.Tires = tires;
         }
         // Методы
         public void ChangeColor()
         {
-           
+            int rndm = new Random().Next(colors.Length);
+            Color = colors[rndm];
+            
+            Console.WriteLine("The new color is: " + colors[rndm]);
         }
 
-        public void WashCar()
+        public void WashCar(bool washed)
         {
-            Washed = true;
+            if (washed == false)
+            {
+                Console.WriteLine("The car was washed!");
+                Washed = true;
+            }
+            else
+            {
+                Console.WriteLine("The car is clear!");
+            }
+        }
+
+        public static void WashCar()
+        {
+            Console.WriteLine("The car was washed!");
         }
 
         public void RepairCar()
         {
             Broken = false;
+            Console.WriteLine("The car was repaired!");
         }
 
-        public static void ChangeTyres(string Tyres)
+        public void ChangeTires(string tires)
         {
-            if (Tyres == "summer")
+            if (tires == "summer")
             {
-                Tyres = "winter";
+                tires = "winter";
+                Console.WriteLine("The tires was replaced with winter tires!");
+            }
+            else
+            {
+                tires = "summer";
+                Console.WriteLine("The tires was replaced with summer tires!");
             }
 
         }
         
         
         //Финализатор
-        
+        ~Cars()
+        {
+            Console.WriteLine("All works is done!");
+        }
     }
 }
 
