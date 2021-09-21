@@ -6,7 +6,6 @@ namespace Task1
     public class Cars
     {
         // свойства
-        protected int id;
         public static readonly string Adress = "Moscow,Obraztsova street,9";
         private string _model;
         private string _brand;
